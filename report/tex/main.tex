@@ -1,0 +1,110 @@
+\documentclass[a4paper,12pt]{article}
+% Package to change margin size
+\usepackage{anysize}
+\marginsize{2cm}{2cm}{1cm}{2cm}
+% Package to make headers
+\usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+% Package for highligths
+\usepackage{soul}
+
+\usepackage[inline]{enumitem}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+
+% Colors for the references links
+\usepackage[dvipsnames]{xcolor}
+% Package to link references
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=CadetBlue,
+    filecolor=CadetBlue,      
+    urlcolor=CadetBlue,
+}
+% Package for lorem ipsum
+\usepackage{lipsum}
+% Package for multicolumn
+\usepackage{multicol}
+% Package for removing paragraph identations
+\usepackage{parskip}
+\setlength\columnsep{18pt}
+% Sets bastract
+\renewenvironment{abstract}
+ {\par\noindent\textbf{\abstractname}\ \ignorespaces \\}
+ {\par\noindent\medskip}
+
+ % Language
+\usepackage[italian]{babel}
+
+% Bibliography
+\usepackage{csquotes}
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sorting=ynt
+]{biblatex}
+\addbibresource{bib/bibliography.bib}
+
+
+
+ 
+\begin{document}
+% Makes header
+\pagestyle{fancy}
+\thispagestyle{empty}
+\fancyhead[R]{\textit{F1801Q160: Machine Learning}}
+\fancyhead[L]{}
+% Makes footnotes with an asterisk
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\begin{center}
+\normalsize
+Progetto finale per il corso F1801Q160: Machine Learning \\
+\vspace{0.4cm}
+\Large{\textbf{Riconoscimento di varietà di fagioli}}
+\vspace{0.4cm}
+\normalsize
+\\ Mattia Bolognini, 870401 \\
+\vspace{0.1cm}
+\textit{Appello del 14 gennaio 2024}
+\medskip
+\normalsize
+\end{center}
+{\color{gray}\hrule}
+\vspace{0.4cm}
+\begin{abstract}
+    Il progetto sviluppato prevede l'addestramento di più modelli di Machine
+    Learning, il cui compito sarà quello di classificare un fagiolo nella 
+    varietà a cui esso appartiene, in base alle sue caratteristiche (già
+    individuate attraverso un altro modello di Computer Vision e relativa
+    feature extraction).
+    In particolare verrà effettuata una prima analisi del dataset, con relativa
+    PCA per ridurre la dimensionalità dello spazio delle feature, per poi
+    procedere con l'effettivo addestramento di quattro modelli di 
+    classificazione: un albero decisionale, una rete neurale 
+    (più precisamente un Multi Layer Perceptron), una Support Vector Machine e
+    un Gaussian Naive Bayes classifier.
+    Infine si confronteranno i vari modelli con metriche adatte, in modo da
+    individuare quello più adatto al compito di classificazione dei fagioli.
+\end{abstract}
+{\color{gray}\hrule}
+\medskip
+
+\begin{multicols}{2}
+    \tableofcontents
+
+    \input{sect/domain.tex}
+    \input{sect/dataset.tex}
+    \input{sect/models.tex}
+    \input{sect/perf_eval.tex}
+    \input{sect/conclusion.tex}
+
+    \printbibliography
+\end{multicols}
+
+\end{document}

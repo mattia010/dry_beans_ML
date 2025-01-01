@@ -1,0 +1,28 @@
+\section{Conclusioni}
+I modelli addestrati hanno tutti ottime performance. La scelta del modello migliore,
+che verrà effettivamente usato per la classificazione dei fagioli,
+ricade, quindi, principalmente sul tempo di addestramento.
+La rete neurale, offrendo prestazioni identiche alla SVM ma con un tempo 
+di addestramento maggiore, è il primo modello che è possibile scartare.
+Lo stesso ragionamento può essere applicato all'albero decisionale, che offre
+prestazioni identiche al Gaussian Naive Bayes classifier ma con un tempo di addestramento
+16 volte maggiore.
+Tra i due modelli rimanenti, ovvero SVM e Gaussian Naive Bayes, la scelta dipende
+dall'accuratezza (bilanciata) richiesta dal dominio: se, infatti, essa deve essere
+massimizzata, allora la scelta ricade sulla SVM, e saranno tollerati
+tempi di addestramento maggiori.
+Se invece il dominio di applicazione tollera permormance minori (che in questo
+caso sono comunque ottime, in quanto Gaussian Naive Bayes ha un'accuratezza bilanciata
+media del $91,5\%$), allora è possibile scegliere Gaussian Naive Bayes,
+e beneficiare di tempi di addestramento molto ridotti.
+
+Nel dominio di applicazione considerato in questo progetto, ovvero la classificazione
+di fagioli nelle loro varietà, alcuni errori possono essere tollerati, 
+in quanto campo a basso impatto d'errore. Di conseguenza, il modello che
+sarà mandato in produzione sarà il Gaussian Naive Bayes.
+
+Questo modello permetterà di diminuire il tempo richiesto per la classificazione,
+e i costi saranno notevolmente ridotti, in quanto non sarà più necessario assumere
+personale addetto (o comunque farlo in maniera molto ridotta).
+Il principale costo associato al sistema di riconoscimento automatico sarà
+solo l'investimento iniziale per l'acquisto del sistema stesso.
