@@ -1,18 +1,5 @@
 \section{Addestramento}
-Prima di procedere con l'addestramento, è necessario suddividere il dataset in
-istanze di addestramento e istanze di test, che verranno poi utilizzate per verificare
-le performance del modello addestrato. D'ora in poi, inoltre, non si farà più
-riferimento al dataset originale, ma al dataset ottenuto dopo aver
-applicato scaling e PCA.
-
-Essendo il dataset composto da una quantità medio-alta di istanze,
-esso può essere suddiviso in
-modo tale che le istanze di test coprano una percentuale tra il 20\% e 
-il 40\% dell'intero dataset.
-In questo caso, si è scelto di riservare il 25\% di istanze al testing,
-ottenendo, di conseguenza, 10208 istanze di addestramento e 3403 istanze di test.
-
-Sono stati scegli 4 modelli di Machine Learning per affrontare il problema:
+I modelli di Machine Learning scelti per affrontare il problema sono quattro:
 albero decisionale, Multi Layer Perceptron, Support Vector Machine e
 Gaussian Naive Bayes classifier.
 I primi tre modelli sono stati scelti in quanto, in base all'esperienza
@@ -66,19 +53,13 @@ Il numero massimo di foglie può invece assumere i valori: \begin{itemize*}
     \item 35
 \end{itemize*}.
 
-\begin{Figure}
-    \centering
-    \includegraphics[width=\linewidth]{img/tree_plot.png}
-    \captionof{figure}{Miglior albero decisionale.}
-\end{Figure}
-
 A seguito della grid search, il modello migliore si rivela essere quello la cui
 combinazione di parametri è criterio = Gini, profondità massima = 8 e numero massimo
 di foglie = 35.
 
-Le performance del modello si rivelano essere ottime: si riscontrano un'accuratezza
-bilanciata del $91\%$, una macro-precisione 
-del $91\%$, un macro-recall del $91\%$ e un macro-f1 del $91\%$.
+Le performance del modello si rivelano essere ottime: si riscontrano 
+un macro-f1 score del $91,3\%$, una macro-precisione del $91\%$ e 
+un macro-recall del $91\%$.
 
 \begin{Figure}
     \centering
@@ -86,9 +67,9 @@ del $91\%$, un macro-recall del $91\%$ e un macro-f1 del $91\%$.
     \captionof{figure}{Matrice di confusione dell'albero decisionale.}
 \end{Figure}
 
-Si può notare una leggera confusione tra classe 3 e classe 6: 90 istanze che 
+Si può notare una leggera confusione tra classe 3 e classe 6: 80 istanze che 
 dovrebbero essere classificare come classe 3 vengono classificate come classe 6,
-viceversa 50 istanze della classe 6 vengono classificate come classe 3.
+viceversa 72 istanze della classe 6 vengono classificate come classe 3.
 Precisione e recall di entrambe le classi rimmangono comunque sopra all'$80\%$.
 
 \subsection{Multi Layer Perceptron}
@@ -140,8 +121,8 @@ layer = $(10)$ e funzione di attivazione = relu.
     \captionof{figure}{Multi Layer Perceptron con i parametri migliori.}
 \end{Figure}
 
-Le performance sono ottime: si rivela un'accuratezza bilanciata del $93,6\%$, una macro-precisione 
-del $94\%$, un macro-recall del $94\%$ e un macro-f1 del $94\%$.
+Le performance sono ottime: si rivela un macro-f1 score del $93,8\%$, 
+una macro-precisione del $94\%$ e un macro-recall del $94\%$.
 
 \begin{Figure}
     \centering
@@ -180,9 +161,8 @@ di epoche richieste.
 \end{Figure}
 
 Le performance della rete con una maggiore tolleranza sono anch'esse ottime:
-si rileva un'accuratezza bilanciata del $93,4\%$, una macro-precisione 
-del $94\%$, un macro-recall del $93\%$ e un macro-f1 del $93\%$.
-
+si rivela un macro-f1 score del $93,5\%$, 
+una macro-precisione del $94\%$ e un macro-recall del $93\%$.
 \begin{Figure}
     \centering
     \includegraphics[width=\linewidth]{img/mlp_high_confusion_matrix.png}
@@ -244,11 +224,11 @@ I kernel considerati sono invece: \begin{itemize*}
 A seguito della grid search, la combinazione migliore si rivela essere $C=2$ e
 kernel = rbf. Di conseguenza, la complessità del modello è abbstanza contenuta,
 grazie al basso valore di $C$.
-Il numero di vettori di supporto individuati da questa SVM è pari a 2151.
+Il numero di vettori di supporto individuati da questa SVM è pari a 2153.
 
 Le perfomance della SVM addestrata con questi parametri sono ottime:
-viene rilevata un'accuratezza bilanciata del $94,2\%$, una macro-precisione 
-del $94\%$, un macro-recall del $94\%$ e un macro-f1 del $94\%$.
+si rivela un macro-f1 score del $94,1\%$, 
+una macro-precisione del $94\%$ e un macro-recall del $94\%$.
 
 \begin{Figure}
     \centering
@@ -293,6 +273,6 @@ strettamente maggiore di 0.
 \end{Figure}
 
 Nonostante tutte queste assunzioni, il classificatore gaussiano si rivela essere
-molto performante e velocissimo da addestrare: si riscontra un'accuratezza 
-bilanciata del $92,2\%$, una macro-precisione 
-del $92\%$, un macro-recall del $92\%$ e un macro-f1 del $92\%$.
+molto performante e velocissimo da addestrare:
+si rivela un macro-f1 score del $92,1\%$, 
+una macro-precisione del $92\%$ e un macro-recall del $92\%$.

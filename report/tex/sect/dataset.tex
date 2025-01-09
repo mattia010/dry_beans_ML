@@ -27,9 +27,10 @@ presentano una differenza di 3000 istanze.
 Per questo motivo non sarà possibile
 utilizzare metriche di performance che non tengono conto di diversi costi
 di errore per le classi, come l'accuratezza, ma sarà necessario adottare misure
-come la precisione, il richiamo, l'f1-score o l'accuratezza bilanciata.
-Si dovranno, inoltre, preferire metriche di macro-performance a quelle di 
-micro-performance.
+come la precisione, il richiamo, o l'f1-score (che corrisponde alla media
+armonica tra precisione e richiamo).
+Dovendo assegnare a tutte le classi la stessa importanza, dovranno essere
+preferite misure di macro-performance rispetto a quelle di micro-performance.
 
 \subsection{Dimensionality reduction}
 Ridurre la dimensionalità dello spazio delle istanze permette di ridurre la
@@ -65,11 +66,24 @@ gestire le feature intere.
 
 L'altra tecnica di dimensionality reduction che è stata citata è
 la Principal Component Analysis, utile quando le feature sono fortemente correlate.
+Prima ancora di effettuare la PCA, però, è necessario suddividere il dataset
+in istanze di addestramento e istanze di test. La PCA verrà poi applicata
+solo sulle istanze dedicate all'addestramento. Questo passaggio è importante
+perchè, nel caso di una suddivisione seguente alla PCA, le componenti scelte
+non dipenderebbero solo dalle istanze di addestramento, ma dal tutto il dataset,
+e quindi l'addestramento non sarebbe totalmente indipendente dal testing.
+Essendo il dataset composto da una quantità medio-alta di istanze,
+esso può essere suddiviso in
+modo tale che le istanze di test coprano una percentuale tra il 20\% e 
+il 40\% dell'intero dataset.
+In questo caso, si è scelto di riservare il 25\% di istanze al testing,
+ottenendo, di conseguenza, 10208 istanze di addestramento e 3403 istanze di test.
 
-Prima di applicare la PCA è però necessario effettuare lo scaling di tutte
-le feature. La PCA, infatti, sceglie le componenti principali in base alla
-loro varianza: feature con un'ampia scala, solitamente dotate di una 
-varianza maggiore, potrebbero quindi influenzare maggiormente la varianza delle
+Una volta effettuato lo splitting del dataset è possibile applicare la PCA.
+Prima di farlo è però necessario effettuare lo scaling di tutte
+le feature: la PCA, infatti, sceglie le componenti principali in base alla
+loro varianza e feature con un'ampia scala, solitamente dotate di una 
+varianza maggiore, potrebbero influenzare maggiormente la varianza delle
 componenti principali e portare a una scelta artificiosa.
 Lo scaling di una feature prevede di modificare tutti i suoi valori in modo 
 che la sua media sia 0 e la sua varianza sia 1.
@@ -85,3 +99,10 @@ Il 95\% della varianza di questo dataset può essere espresso usando solo
     \captionof{figure}{Pesi delle feature per ogni componente principale.}
 \end{Figure}
 
+D'ora in poi, quando si parlerà di istanze di addestramento si farà riferimento
+alle istanze di addestramento a cui è già stata applicata la PCA.
+Si ricorca anche che, prima di poter utilizzare le istanze di test per verificare
+le performance del modello, è necessario effettuare lo scaling e la PCA per esse,
+in modo tale che possano essere fornite correttamente in input ai modelli.
+Scaling e PCA non verranno però ricalcolati, ma verranno sfruttati scaler e 
+PCA calcolati sulle istanze di addestramento. 
