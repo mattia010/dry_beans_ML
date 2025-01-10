@@ -33,8 +33,7 @@ di Shannon.
 
 Per stabilire quale criterio permette di definire l'albero decisionale
 migliore per il dataset che si sta considerando, si effettua una grid search
-su entrambi i criteri, e si considera il modello con una maggiore
-accuratezza bilanciata.
+su entrambi i criteri, e si considera il modello con il maggiore macro-f1 score.
 Per contenere la complessità dell'albero (e quindi l'overfitting), inoltre,
 vengono valutati anche i parametri associati alla profondità massima
 e al numero di foglie massimo.
@@ -67,13 +66,8 @@ un macro-recall del $91\%$.
     \captionof{figure}{Matrice di confusione dell'albero decisionale.}
 \end{Figure}
 
-Si può notare una leggera confusione tra classe 3 e classe 6: 80 istanze che 
-dovrebbero essere classificare come classe 3 vengono classificate come classe 6,
-viceversa 72 istanze della classe 6 vengono classificate come classe 3.
-Precisione e recall di entrambe le classi rimmangono comunque sopra all'$80\%$.
-
 \subsection{Multi Layer Perceptron}
-Un Multi Layer Perceptron è una rete neurale fully connected in cui 
+Un Multi Layer Perceptron è una rete neurale feed-forward fully connected in cui 
 ogni neurone si comporta come un percettrone. Una rete neurale è composta
 da diversi strati di neuroni, che possono essere suddivisi in: strato di input;
 strati nascosti; strato di output.
@@ -85,15 +79,15 @@ a intervalli regolari definiti dalla batch size, la backpropagation, ovvero
 aggiorna i suoi pesi in modo tale da ridurre, idealmente, l'errore di previsione.
 Per propagare l'errore, e quindi aggiornare i pesi, la rete usa la discesa del
 gradiente, basata sulle derivate prime della funzione errore. Inoltre,
-la discesa del gradiente necessita che le funzioni di attivazione dei neuroni
+la discesa del gradiente richiede che le funzioni di attivazione dei neuroni
 siano derivabili.
 Le funzioni di attivazione derivabili più utilizzate sono lineare, tanh, relu
 e softmax (solitamente usata per il layer di output). Alcune di esse, come tanh,
-sono più computazionalmente onerose delle altre, come relu.
-Ogni rete neurale, inotre, esamina l'input per un certo numero di epoche:
+sono più computazionalmente onerose rispetto alle altre.
+Ogni rete neurale, inoltre, esamina l'input per un certo numero di epoche:
 una singola analisi dell'intero dataset di addestramento corrisponde a un'epoca.
 
-La complessità, e di conseguenza l'overfitting, di una rete neurale crescere
+La complessità di una rete neurale, e di conseguenza il suo overfitting, cresce
 all'aumentare del numero di layer e del numero di neuroni contenuti in un
 singolo layer: la rete deve quindi
 essere definita in modo da ottenere alte performance con un numero limitato
@@ -112,16 +106,16 @@ Le funzioni di attivazione considerate sono invece: \begin{itemize*}
     \item relu
 \end{itemize*}.
 
-A seguito della grid search, la combinazione di parametri migliore si rivela essere 
-layer = $(10)$ e funzione di attivazione = relu.
-
 \begin{Figure}
     \centering
-    \includegraphics[width=0.75\linewidth]{img/mlp.png}
+    \includegraphics[width=0.8\linewidth]{img/mlp.png}
     \captionof{figure}{Multi Layer Perceptron con i parametri migliori.}
 \end{Figure}
 
-Le performance sono ottime: si rivela un macro-f1 score del $93,8\%$, 
+A seguito della grid search, la combinazione di parametri migliore si rivela essere 
+layer = $(10)$ e funzione di attivazione = relu.
+
+Le performance sono ottime: si rileva un macro-f1 score del $93,8\%$, 
 una macro-precisione del $94\%$ e un macro-recall del $94\%$.
 
 \begin{Figure}
@@ -133,8 +127,8 @@ una macro-precisione del $94\%$ e un macro-recall del $94\%$.
 La complessità della rete rimane comunque elevata: analizzando la loss curve
 definita nel corso dell'addestramento, infatti, si può evidenziare il fatto
 che la loss non decresce significativamente per un elevato numero di epoche,
-aumentando l'overfitting della rete sui dati di training e richiedendo un maggiore
-tempo di addestramento. L'addestramento termina quindi al limite stabilito
+aumentando il rischio di overfitting sui dati di training e richiedendo un maggiore
+tempo di addestramento. L'addestramento termina, quindi, al limite stabilito
 dalla libreria Sklearn, ovvero 200 epoche.
 
 \begin{Figure}
@@ -160,14 +154,15 @@ di epoche richieste.
     \captionof{figure}{Loss curve del MLP con tol = 0.001.}
 \end{Figure}
 
-Le performance della rete con una maggiore tolleranza sono anch'esse ottime:
-si rivela un macro-f1 score del $93,5\%$, 
-una macro-precisione del $94\%$ e un macro-recall del $93\%$.
 \begin{Figure}
     \centering
     \includegraphics[width=\linewidth]{img/mlp_high_confusion_matrix.png}
     \captionof{figure}{Matrice di confusione del MLP con tol = 0.001.}
 \end{Figure}
+
+Le performance della rete con una maggiore tolleranza sono anch'esse ottime:
+si rileva un macro-f1 score del $93,5\%$, 
+una macro-precisione del $94\%$ e un macro-recall del $93\%$.
 
 \subsection{Support Vector Machine}
 Una Support Vector Machine è un modello di Machine Learning fortemente legato
@@ -195,8 +190,7 @@ lineari. In realtà, il kernel trick non separa le istanze con vere e proprie
 funzioni non lineari, ma le separa linearmente in uno spazio di dimensione
 maggiore di quello di partenza; questo 
 iperpiano, però, si traduce in una funzione non lineare nello spazio di partenza.
-Anche in questo caso, il kernel che deve essere utilizzato per aumentare la
-dimensionalità dello spazio deve essere stabilito prima dell'apprendimento.
+Anche in questo caso, la funzione kernel da utilizzare deve essere stabilita prima dell'apprendimento.
 Le funzioni kernel più comuni sono: \begin{itemize*}
     \item lineare
     \item polinomiale
@@ -209,7 +203,7 @@ e risulta più performante su dataset a cui è stato applicato lo scaling.
 Questo passaggio è, però, già stato effettuato nella fase di Analisi esplorativa.
 
 Viene quindi eseguita una grid search per individuare la combinazione di parametri
-migliore, ovvero quella che massimizza l'accuratezza bilanciata.
+migliore, ovvero quella che massimizza il macro-f1 score.
 I valori di trade-off considerati sono: \begin{itemize*}
     \item 1
     \item 2
@@ -221,6 +215,12 @@ I kernel considerati sono invece: \begin{itemize*}
     \item radial basis function (rbf)
 \end{itemize*}.
 
+\begin{Figure}
+    \centering
+    \includegraphics[width=\linewidth]{img/svm_confusion_matrix.png}
+    \captionof{figure}{Matrice di confusione della SVM.}
+\end{Figure}
+
 A seguito della grid search, la combinazione migliore si rivela essere $C=2$ e
 kernel = rbf. Di conseguenza, la complessità del modello è abbstanza contenuta,
 grazie al basso valore di $C$.
@@ -229,12 +229,6 @@ Il numero di vettori di supporto individuati da questa SVM è pari a 2153.
 Le perfomance della SVM addestrata con questi parametri sono ottime:
 si rivela un macro-f1 score del $94,1\%$, 
 una macro-precisione del $94\%$ e un macro-recall del $94\%$.
-
-\begin{Figure}
-    \centering
-    \includegraphics[width=\linewidth]{img/svm_confusion_matrix.png}
-    \captionof{figure}{Matrice di confusione della SVM.}
-\end{Figure}
 
 \subsection{Gaussian Naive Bayes}
 Gaussian Naive Bayes classifier è un modello di Machine Learning basato sul
@@ -249,22 +243,24 @@ discrete) e con valori negativi.
 Questo classificatore si può utilizzare solo facendo alcune
 assunzioni: la distribuzione di probabilità di ogni feature deve essere
 normale e ogni feature deve essere condizionalmente indipendente dalle altre.
-Per quanto riguarda la seconda assunzione, le componenti principali del dataset
-hanno tutte distribuzioni normali, escluse la prima e la seconda. 
-Si possono comunque assumere normali, in modo da poter ugualmente applicare il 
+Per quanto riguarda la prima assunzione, le componenti principali del dataset
+hanno tutte distribuzioni normali, escluse la prima e la seconda che, invece,
+presentano una distribuzione multimodale. 
+Esse si possono comunque assumere normali, in modo da poter ugualmente applicare il 
 classificatore gaussiano.
+
+\begin{Figure}
+    \centering
+    \includegraphics[width=\linewidth]{img/components_distribution.png}
+    \captionof{figure}{Distribuzioni di probabilità per le componenti principali
+    considerate.}
+\end{Figure}
+
 Inoltre, tutte le feature con varianza 0 non devono essere considerate, in quanto
 non portano alcuna informazione e non permettono al classificatore di 
 raggiungere performance ottimali. Si può osservare, però, che le uniche feature
 rimaste sono le 5 componenti principali scelte da PCA, ognuna con varianza
 strettamente maggiore di 0.
-
-\begin{Figure}
-    \centering
-    \includegraphics[width=0.85\linewidth]{img/components_distribution.png}
-    \captionof{figure}{Distribuzioni di probabilità per le componenti principali
-    considerate.}
-\end{Figure}
 
 \begin{Figure}
     \centering
@@ -274,5 +270,5 @@ strettamente maggiore di 0.
 
 Nonostante tutte queste assunzioni, il classificatore gaussiano si rivela essere
 molto performante e velocissimo da addestrare:
-si rivela un macro-f1 score del $92,1\%$, 
+si rileva un macro-f1 score del $92,1\%$, 
 una macro-precisione del $92\%$ e un macro-recall del $92\%$.

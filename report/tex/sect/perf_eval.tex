@@ -1,7 +1,7 @@
 \section{Confronto tra modelli}
 I quattro modelli addestrati portano tutti a ottime performance, ma i loro 
 tempi di addestramento variano notevolmente.
-Per scegliere il modello migliore vengono quindi analizzati sia il macro-f1 score
+Per scegliere il modello migliore, quindi, vengono analizzati sia il macro-f1 score
 sia il tempo di addestramento.
 
 Per calcolare valore medio e intervallo di confidenza di entrambe
@@ -18,49 +18,61 @@ sono: \begin{itemize*}
     \item SVM = $93,8\%$
     \item Gaussian Naive Bayes = $91,5\%$
 \end{itemize*}
-Gli intervalli di confidenza al $90\%$ dell'accuratezza bilanciata sono invece:
+Gli intervalli di confidenza al $90\%$ del macro-f1 score sono invece:
 \begin{itemize*}
     \item albero decisionale = $(90,7\%, 91,4\%)$
     \item MLP = $(92,9\%, 93,5\%)$
     \item SVM = $(93,6\%, 94,1\%)$
     \item Gaussian Naive Bayes = $(91,1\%, 91,8\%)$
 \end{itemize*}
-Il modello con le performance migliori è, quindi, la SVM. Albero decisionale e
-Gaussian Naive Bayes presentano, invece, prestazioni praticamente identiche.
+Il modello con le performance migliori è, quindi, la SVM.
+
+\begin{Figure}
+    \centering
+    \includegraphics[width=\linewidth]{img/confidence_interval_perf.png}
+    \captionof{figure}{Intervallo di confidenza al 90\% per il macro-f1 score.}
+\end{Figure}
 
 Analizzando i tempi di addestramento medi, però, si può osservare che
 SVM e MLP richiedono molto più tempo per essere addestrate rispetto
 agli altri due modelli: \begin{itemize*}
-    \item albero decisionale = 115 ms
-    \item MLP = 1990 ms
-    \item SVM = 794 ms
-    \item Gaussian Naive Bayes = 6 ms
+    \item albero decisionale = 88 ms
+    \item MLP = 2003 ms
+    \item SVM = 987 ms
+    \item Gaussian Naive Bayes = 5 ms
 \end{itemize*}
 L'intervallo di confidenza al $90\%$ del tempo di addestramento è: \begin{itemize*}
-    \item albero decisionale = (112 ms, 119 ms)
-    \item MLP = (1770 ms, 2211 ms)
-    \item SVM = (687 ms, 901 ms)
-    \item Gaussian Naive Bayes = (6 ms, 7 ms)
+    \item albero decisionale = (82 ms, 94 ms)
+    \item MLP = (1617 ms, 2389 ms)
+    \item SVM = (817 ms, 1156 ms)
+    \item Gaussian Naive Bayes = (4 ms, 5 ms)
 \end{itemize*}
 
-NOTA: i tempi di esecuzione qui riportati non sono identici a quelli rilevati
-su Colab. Il tempo di esecuzione dipende infatti da molti fattori, tra cui il 
+\textit{NOTA}: i tempi di esecuzione qui riportati non possono essere identici a quelli 
+rilevati su Colab. 
+Il tempo di esecuzione dipende, infatti, da molti fattori, tra cui il 
 carico dei server di Google Colab. Si può affermare, però, che i tempi qui
 riportati approssimano bene il tempo di addestramento reale.
 
-I modelli addestrati hanno tutti ottime performance. La scelta del modello migliore,
-che verrà effettivamente usato per la classificazione dei fagioli,
-ricade, quindi, principalmente sul tempo di addestramento.
-La rete neurale, offrendo prestazioni identiche alla SVM ma con un tempo 
+\begin{Figure}
+    \centering
+    \includegraphics[width=\linewidth]{img/confidence_interval_time.png}
+    \captionof{figure}{Intervallo di confidenza al 90\% per il tempo di addestramento.}
+\end{Figure}
+
+Tutti i modelli addestrati presentano, quindi, ottime performance.
+La scelta del modello migliore, che verrà effettivamente usato 
+per la classificazione dei fagioli, ricade principalmente, quindi,
+sul tempo di addestramento.
+La rete neurale, offrendo prestazioni poco inferiori alla SVM ma con un tempo 
 di addestramento maggiore, è il primo modello che è possibile scartare.
-Lo stesso ragionamento può essere applicato all'albero decisionale, che offre
-prestazioni identiche al Gaussian Naive Bayes classifier ma con un tempo di addestramento
-16 volte maggiore.
+Lo stesso ragionamento può essere applicato all'albero decisionale,
+in riferimento al Gaussian Naive Bayes classifier.
 Tra i due modelli rimanenti, ovvero SVM e Gaussian Naive Bayes, la scelta dipende
-dall'accuratezza (bilanciata) richiesta dal dominio: se, infatti, essa deve essere
-massimizzata, allora la scelta ricade sulla SVM, e saranno tollerati
-tempi di addestramento maggiori.
-Se invece il dominio di applicazione tollera permormance minori (che in questo
+dalla tolleranza all'errore che il dominio sopporta: se, infatti,
+le performance devono essere massimizzate, allora la scelta ricade sulla SVM, 
+e dovranno essere tollerati tempi di addestramento maggiori.
+Se, invece, il dominio di applicazione sopporta permormance minori (che in questo
 caso sono comunque ottime, in quanto Gaussian Naive Bayes ha un
 macro-f1 score medio del $91,5\%$), allora è possibile scegliere Gaussian Naive Bayes,
 e beneficiare di tempi di addestramento molto ridotti.
