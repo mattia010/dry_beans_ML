@@ -34,7 +34,7 @@ di Shannon.
 Per stabilire quale criterio permette di definire l'albero decisionale
 migliore per il dataset che si sta considerando, si effettua una grid search
 su entrambi i criteri, e si considera il modello con il maggiore macro-f1 score.
-Per contenere la complessità dell'albero (e quindi l'overfitting), inoltre,
+Per contenere la complessità dell'albero, inoltre,
 vengono valutati anche i parametri associati alla profondità massima
 e al numero di foglie massimo.
 I criteri di separazione che vengono valutati sono: \begin{itemize*}
@@ -87,11 +87,12 @@ sono più computazionalmente onerose rispetto alle altre.
 Ogni rete neurale, inoltre, esamina l'input per un certo numero di epoche:
 una singola analisi dell'intero dataset di addestramento corrisponde a un'epoca.
 
-La complessità di una rete neurale, e di conseguenza il suo overfitting, cresce
+La complessità di una rete neurale cresce
 all'aumentare del numero di layer e del numero di neuroni contenuti in un
 singolo layer: la rete deve quindi
 essere definita in modo da ottenere alte performance con un numero limitato
-di layer e neuroni per layer.
+di layer e neuroni per layer, in modo tale da contenere il tempo di addestramento
+e diminuire il rischio di overfitting.
 Un altro fattore di overfitting può essere l'esecuzione di molte epoche.
 
 Per trovare la combinazione di parametri migliore per la rete, viene eseguita 
@@ -108,7 +109,7 @@ Le funzioni di attivazione considerate sono invece: \begin{itemize*}
 
 \begin{Figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{img/mlp.png}
+    \includegraphics[width=0.75\linewidth]{img/mlp.png}
     \captionof{figure}{Multi Layer Perceptron con i parametri migliori.}
 \end{Figure}
 
@@ -140,7 +141,7 @@ dalla libreria Sklearn, ovvero 200 epoche.
 Una tecnica che può essere utilizzata per ridurre il numero di epoche
 è quella di aumentare la tolleranza della rete.
 La tolleranza è, infatti, un parametro che stabilisce un decremento minimo
-della loss durante l'esecuzione del training: se per 5 epoche la loss
+della loss durante l'esecuzione del training: se per 5 epoche consecutive la loss
 diminuisce di un valore minore della tolleranza, allora il training si può
 arrestare.
 La tolleranza individuata che permette di mantenere performance simili alla
@@ -227,7 +228,7 @@ grazie al basso valore di $C$.
 Il numero di vettori di supporto individuati da questa SVM è pari a 2153.
 
 Le perfomance della SVM addestrata con questi parametri sono ottime:
-si rivela un macro-f1 score del $94,1\%$, 
+si rileva un macro-f1 score del $94,1\%$, 
 una macro-precisione del $94\%$ e un macro-recall del $94\%$.
 
 \subsection{Gaussian Naive Bayes}
